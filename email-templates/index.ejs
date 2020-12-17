@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Paisley Daily Digest</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <table class="main-table" >
+      <tbody>
+        <tr class="header">
+          <td class="padding">
+            <h1 class="header__title">Paisley <%= data.name %></h1>
+            <!-- date data holla -->
+            <table class="header__date" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td class="header__date__day-of-the-month" rowspan="2">
+                    <%= data.date.date%>
+                  </td>
+                  <td class="header__date__day-of-the-week">
+                    <%= data.date.weekDay%>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="header__date-month">
+                    <%= data.date.month%>, <%= data.date.year%>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <%data.mails.forEach(entry => {%>
+          <tr>
+            <td>
+              <% if(entry.sections) {%>
+                <%- include('partials/posts-with-chunk-sections.ejs', {
+                  name: data.name,
+                  sections: entry.sections
+              })%>
+
+              <%} else {%>
+                <%- include('partials/posts-section.ejs', {
+                  config: entry.config,
+                  posts: entry.posts
+                }) %>
+              <%}%>
+            </td>
+          </tr>
+        <%})%>
+        <tr>
+          <td>
+            <table width="100%">
+              <tr>
+                <td>
+                  <div class="padding footer-section">
+                    <p class="footer-section__brand-name">
+                      Automatically Generated with love By
+                      <span class="orange">Paisley Digest</span>
+                    </p>
+                    <!-- <p> Based In Akwa Ibom State, Nigeria.</p> -->
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

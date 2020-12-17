@@ -1,0 +1,29 @@
+<div class="posts-section <%= !config.subHeader ? 'padding' : '' %>">
+  <div class="posts-section__header">
+    <!-- <img src="/logos/icon.png" class="posts-section__header__image" /> -->
+    <a href="<%= config.link %>">
+      <h2
+        class="
+          <%=
+            !config.subHeader ?
+              'posts-section__header__link'
+              : 'posts-section__header__link--sub'
+          %>
+        "
+      >
+        <%= config.name %>
+      </h2>
+    </a>
+  </div>
+  <table style="width: 100%;">
+    <tbody>
+      <tr cellspacing="0">
+        <td>
+        <% posts.forEach(post => { %>
+          <%- include('post.ejs', { post }) %>
+        <% }) %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,58 @@
+# DO NOT TOUCH THIS FILE!!
+
+
+indiehackers:
+  name: Indie Hackers
+  website: https://indiehackers.com
+  post: '.feed-item'
+  link: '.feed-item__title-link'
+  title: '.feed-item__title-link'
+  author: '.user-link__name.user-link__name--username'
+  points: '.feed-item__likes-count'
+  comments: '.feed-item__reply-count'
+  commentLink: '.feed-item__reply-count'
+  domain: '.feed-item__url-domain'
+  ignore: &ignore  ^(ascending|outsideContext|ignore|count|name|channel|post|website)$
+
+hackernews:
+  name: Hacker News
+  website: https://news.ycombinator.com/news
+  post: ' .athing'
+  link: '.storylink'
+  title: '.storylink'
+  author: '+tr a'
+  points: '+tr .score'
+  comments: '+tr a:nth-child(6)'
+  domain: '.sitestr'
+  commentLink: '+tr a:nth-child(6)'
+  outsideContext: true
+  ignore: *ignore
+
+billboard-100:
+  website: https://billboard.com/charts/hot-100
+  name: 'billboard hot 100'
+  post: '.chart-list__element.display--flex'
+  title: '.chart-element__information__song'
+  artist: '.chart-element__information__artist'
+  rank: '.chart-element__rank__number'
+  peak: 'div.chart-element__meta.text--peak'
+  weeks-on-chart: 'div.chart-element__meta.text--week'
+  last-week: 'div.chart-element__meta.text--last'
+  isNew: '.chart-element__trend--new'
+  style-background-image: '.chart-element__image'
+  isChart: true
+  ignore: *ignore
+  # scroll: 200ms
+
+reddit:
+  website: https://www.reddit.com/r/${channel}/top/?t=day
+  post: '.Post'
+  title: 'h3._eYtD2XCVieq6emjKBH3m'
+  points: '._1rZYMD_4xY3gRcSS3p8ODO'
+  comments: '.FHCV02u6Cp2zYL0fhQPsO'
+  commentLink: 'a._2qww3J5KKzsD7e5DO0BvvU'
+  link: 'a._2qww3J5KKzsD7e5DO0BvvU'
+  imagesrc: '.media-element'
+  imageposter: 'video'
+  channel: ''
+  ignore: *ignore

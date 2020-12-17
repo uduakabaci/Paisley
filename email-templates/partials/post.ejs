@@ -1,0 +1,63 @@
+<table class="post <%= post.imagesrc ? 'post--block' : ''%>" width="100%" valign="top">
+  <tbody>
+    <tr>
+      <td>
+        <%if(post.imagesrc){%>
+          <div class="post__image">
+            <img src="<%= post.imagesrc %>" alt="<%= post.title %>" data-inline-ignore >
+          </div>
+        <%}%>
+        <a href="<%= post.link %>">
+          <h4 class="post__title"><%= post.title %> </h4>
+        </a>
+
+        <% if(post.points){ %>
+          <a href="#" class="post__meta-data" title="post points">
+            <img src="https://i.postimg.cc/YCbsvsZW/upvote.png" alt="upvotes counts" class="post__meta-data-img" data-inline-ignore>
+            <span class="post__meta-data-span"><%= post.points %></span>
+          </a>
+        <% } %>
+
+        <% if(post['last-week']){ %>
+          <a href="#" class="post__meta-data" title="last week on chart">
+            <img src="https://i.postimg.cc/JzV1TGzq/last-week.png" alt="last week" class="post__meta-data-img" data-inline-ignore>
+            <span class="post__meta-data-span"><%= post['last-week'] %></span>
+          </a>
+        <% } %>
+
+
+        <% if(post.comments){ %>
+          <a href="<%= post.commentLink %>" class="post__meta-data" title="comments count">
+            <img src="https://i.postimg.cc/vTVJ9tfd/comment.png" alt="comment counts" class="post__meta-data-img" data-inline-ignore>
+            <span class="post__meta-data-span"><%= post.comments %></span>
+          </a>
+        <% } %>
+
+        <% if(post.domain && post.domain !== '0'){ %>
+          <a href="#" class="post__meta-data">
+            <img src="https://i.postimg.cc/QdXzx34D/link.png" alt="link domain" class="post__meta-data-img" data-inline-ignore>
+            <span class="post__meta-data-span"><%= post.domain %></span>
+          </a>
+        <% } %>
+
+        <% if(post.rank){ %>
+          <a href="#" class="post__meta-data" title="Song position">
+            <img src="https://i.postimg.cc/8PF5K2B1/trend.png" alt="rank" class="post__meta-data-img" data-inline-ignore>
+            <span class="post__meta-data-span"><%= post.rank %></span>
+          </a>
+        <% } %>
+
+        <% if(post.artist){ %>
+          <a href="#" class="post__meta-data" title="Song artist">
+            <img src="https://i.postimg.cc/HsjcGcH1/mic.png" alt="artist" class="post__meta-data-img" data-inline-ignore>
+            <span class="post__meta-data-span"><%= post.artist %></span>
+          </a>
+        <% } %>
+
+        <% if(post.isNew && post.isNew != '0'){ %>
+          <span class="post__meta-data post__meta-data--is-new">new</span>
+        <%}%>
+      </td>
+    </tr>
+  </tbody>
+</table>

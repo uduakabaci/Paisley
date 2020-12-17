@@ -1,0 +1,45 @@
+{
+  "name": "paisley",
+  "version": "1.0.0",
+  "private": true,
+  "description": "paisley is webscrapper",
+  "main": "index.js",
+  "scripts": {
+    "crawl": "node crawler.js",
+    "gulp": "gulp",
+    "serve": "gulp serve",
+    "start": "NODE_ENV=production node --optimize_for_size --max_old_space_size=460 index.js",
+    "dev": "NODE_ENV=development node index.js",
+    "test": "jest"
+  },
+  "author": "uduakabaci",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.13",
+    "gulp-rename": "^2.0.0"
+  },
+  "dependencies": {
+    "jest": "^26.6.3",
+    "cron-parser": "^2.18.0",
+    "cron-validator": "^1.2.0",
+    "csv": "^5.3.2",
+    "date-and-time": "^0.14.1",
+    "dotenv": "^8.2.0",
+    "download": "^8.0.0",
+    "ejs": "^3.1.5",
+    "gulp": "^4.0.2",
+    "gulp-ejs": "^5.1.0",
+    "js-yaml": "^3.14.0",
+    "juice": "^7.0.0",
+    "nodemailer": "^6.4.16",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.1",
+    "puppeteer": "^5.3.1",
+    "stream-to-string": "^1.2.0",
+    "valid-url": "^1.0.9"
+  },
+  "engines": {
+    "node": ">=14.15.1",
+    "npm": ">=6.14.8"
+  }
+}
