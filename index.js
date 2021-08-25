@@ -8,5 +8,5 @@
   const mh = MailHandler.init()
   await mh.start()
 })()
-  .then((d) => console.log('all done'))
+  .then(() => console.log('all done'))
   .catch((e) => console.log(e))
