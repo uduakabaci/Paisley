@@ -1,12 +1,8 @@
 const DataHandler = require('../classes/DataHandler')
-const {
-  rm,
-  mkdirSync,
-  unlinkSync,
-  readdirSync,
-  readFileSync,
-  writeFileSync
-} = require('fs')
+const { mkdirSync, readFileSync, writeFileSync } = require('fs')
+
+const rimraf = require('rimraf')
+
 const dataDir = './tests/test-data'
 
 beforeAll(() => {
@@ -14,7 +10,9 @@ beforeAll(() => {
     mkdirSync(dataDir)
   } catch (e) {}
 })
-afterAll((cb) => rm(dataDir, { recursive: true, force: true }, cb))
+
+afterAll((cb) => rimraf(dataDir, cb))
+
 jest.mock('download', () => () => {
   const Stream = require('stream')
   const readable = new Stream.Readable()

@@ -1,6 +1,8 @@
+const rimraf = require('rimraf')
 const MailHandler = require('../classes/MailHandler')
 const DataHandler = require('../classes/DataHandler')
-const { mkdirSync, rm, readdirSync } = require('fs')
+const { mkdirSync, readdirSync } = require('fs')
+
 const dataDir = './tests/test-data'
 // set the mail data dir our temp dir
 process.env.MAIL_DATA_DIR = dataDir
@@ -101,7 +103,7 @@ beforeAll(async () => {
   await DataHandler.write(mailPath2, mailData2)
 })
 
-afterAll((cb) => rm(dataDir, { recursive: true, force: true }, cb))
+afterAll((cb) => rimraf(dataDir, cb))
 
 beforeEach((cb) => {
   // create a fresh new object every time we run a test

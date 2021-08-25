@@ -22,7 +22,6 @@
     "prettier": "^2.3.2"
   },
   "dependencies": {
-    "jest": "^26.6.3",
     "cron-parser": "^2.18.0",
     "cron-validator": "^1.2.0",
     "csv": "^5.3.2",
@@ -32,11 +31,13 @@
     "ejs": "^3.1.5",
     "gulp": "^4.0.2",
     "gulp-ejs": "^5.1.0",
+    "jest": "^26.6.3",
     "js-yaml": "^3.14.0",
     "juice": "^7.0.0",
     "nodemailer": "^6.4.16",
     "nodemon": "^2.0.6",
     "puppeteer": "^5.3.1",
+    "rimraf": "^3.0.2",
     "stream-to-string": "^1.2.0",
     "valid-url": "^1.0.9"
   },

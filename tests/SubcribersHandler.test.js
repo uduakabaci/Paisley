@@ -1,5 +1,6 @@
 const { mockPuppeteer } = require('./PuppeteerMock')
-const { rm, readdirSync, mkdirSync, writeFileSync } = require('fs')
+const { readdirSync, mkdirSync, writeFileSync } = require('fs')
+const rimraf = require('rimraf')
 const SubscribersHandler = require('../classes/SubscribersHandler.js')
 const DataHandler = require('../classes/DataHandler')
 
@@ -41,7 +42,8 @@ beforeAll(() => {
   writeFileSync(subscribersFile, mailData)
 })
 
-afterAll((cb) => rm(dataDir, { recursive: true, force: true }, cb))
+// afterAll((cb) => rm(dataDir, { recursive: true, force: true }, cb))
+afterAll((cb) => rimraf(dataDir, cb))
 beforeEach(() => {
   sH = SubscribersHandler.init()
   sH.quiet = false

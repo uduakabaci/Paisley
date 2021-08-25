@@ -4,8 +4,10 @@ const {
   mockPuppeteer,
   mockElementHandle
 } = require('./PuppeteerMock')
-const { rm, readdirSync, mkdirSync } = require('fs')
+const rimraf = require('rimraf')
 const puppeteer = require('puppeteer')
+const { mkdirSync } = require('fs')
+
 const dataDir = './tests/test-data'
 let pC
 jest.mock('puppeteer', () => mockPuppeteer)
@@ -16,7 +18,8 @@ beforeAll(() => {
   } catch (e) {}
 })
 
-afterAll((cb) => rm(dataDir, { recursive: true, force: true }, cb))
+// afterAll((cb) => rm(dataDir, { recursive: true, force: true }, cb))
+afterAll((cb) => rimraf(dataDir, cb))
 
 beforeEach(() => {
   pC = new PostCrawler({ quiet: true })
