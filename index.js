@@ -1,4 +1,4 @@
-(async () => {
+;(async () => {
   const SubscribersHandler = require('./classes/SubscribersHandler.js')
   const sh = SubscribersHandler.init()
   await sh.load()
@@ -8,5 +8,5 @@
   const mh = MailHandler.init()
   await mh.start()
 })()
-  .then(d => console.log('all done'))
-  .catch(e => console.log(e))
+  .then((d) => console.log('all done'))
+  .catch((e) => console.log(e))

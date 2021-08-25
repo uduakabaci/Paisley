@@ -1,18 +1,15 @@
 <div class="posts-section padding">
   <div class="posts-section__header">
     <!-- <img src="/logos/icon.png" class="posts-section__header__image" /> -->
-    <h2 class="posts-section__header__link"> <%= name %></h2>
+    <h2 class="posts-section__header__link"><%= name %></h2>
   </div>
-  <table style="width: 100%;">
+  <table style="width: 100%">
     <tbody>
       <tr cellspacing="0">
         <td>
-        <% sections.forEach(section => { %>
-          <%- include('posts-section.ejs', {
-            posts: section.posts,
-            config: Object.assign({}, section.config, { subHeader: true }),
-          }) %>
-        <% }) %>
+          <% sections.forEach(section => { %> <%- include('posts-section.ejs', {
+          posts: section.posts, config: Object.assign({}, section.config, {
+          subHeader: true }), }) %> <% }) %>
         </td>
       </tr>
     </tbody>

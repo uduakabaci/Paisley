@@ -1,6 +1,5 @@
 # DO NOT TOUCH THIS FILE!!
 
-
 indiehackers:
   name: Indie Hackers
   website: https://indiehackers.com
@@ -12,7 +11,7 @@ indiehackers:
   comments: '.feed-item__reply-count'
   commentLink: '.feed-item__reply-count'
   domain: '.feed-item__url-domain'
-  ignore: &ignore  ^(ascending|outsideContext|ignore|count|name|channel|post|website)$
+  ignore: &ignore ^(ascending|outsideContext|ignore|count|name|channel|post|website)$
 
 hackernews:
   name: Hacker News

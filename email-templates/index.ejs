@@ -3,11 +3,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Paisley Daily Digest</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <table class="main-table" >
+    <table class="main-table">
       <tbody>
         <tr class="header">
           <td class="padding">
@@ -33,22 +33,15 @@
           </td>
         </tr>
         <%data.mails.forEach(entry => {%>
-          <tr>
-            <td>
-              <% if(entry.sections) {%>
-                <%- include('partials/posts-with-chunk-sections.ejs', {
-                  name: data.name,
-                  sections: entry.sections
-              })%>
-
-              <%} else {%>
-                <%- include('partials/posts-section.ejs', {
-                  config: entry.config,
-                  posts: entry.posts
-                }) %>
-              <%}%>
-            </td>
-          </tr>
+        <tr>
+          <td>
+            <% if(entry.sections) {%> <%-
+            include('partials/posts-with-chunk-sections.ejs', { name: data.name,
+            sections: entry.sections })%> <%} else {%> <%-
+            include('partials/posts-section.ejs', { config: entry.config, posts:
+            entry.posts }) %> <%}%>
+          </td>
+        </tr>
         <%})%>
         <tr>
           <td>

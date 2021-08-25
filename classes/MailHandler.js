@@ -6,8 +6,16 @@ const mailer = require('nodemailer')
 const Juice = require('juice')
 
 class MailHandler {
-  constructor({ username, password, host, port, fromEmail, dataDir, viewsDir, quiet }) {
-
+  constructor({
+    username,
+    password,
+    host,
+    port,
+    fromEmail,
+    dataDir,
+    viewsDir,
+    quiet
+  }) {
     if (!username) throw new Error('username not provided')
     if (!password) throw new Error('password not provided')
     if (!host) throw new Error('host not provided')
@@ -51,32 +59,36 @@ class MailHandler {
   }
 
   async constructMailData(file) {
-    return new Promise(async (resolve, reject ) => {
+    return new Promise(async (resolve, reject) => {
       let { email, data } = await this.formMailData(file)
-      let mail = await ejs.renderFile(`${this.viewsDir}/index.ejs`, { data }, {
-        views: [this.viewsDir]
-      })
-
-      // juice the mail with resources. we will inline most of the content here
-      Juice.juiceResources(mail, {
-          webResources: {
-            relativeTo: process.env.ASSETS_URL
-          }
-        }, (err, mail) => {
-          if (err) return reject(err)
-          resolve({ mail, email, name: data.name})
+      let mail = await ejs.renderFile(
+        `${this.viewsDir}/index.ejs`,
+        { data },
+        {
+          views: [this.viewsDir]
         }
       )
 
+      // juice the mail with resources. we will inline most of the content here
+      Juice.juiceResources(
+        mail,
+        {
+          webResources: {
+            relativeTo: process.env.ASSETS_URL
+          }
+        },
+        (err, mail) => {
+          if (err) return reject(err)
+          resolve({ mail, email, name: data.name })
+        }
+      )
     })
   }
 
   async formMailData(file) {
     // grab the email from the filename
     const email = path.basename(file).match(this.emailRegex)[1]
-    let data = this.convertMailDataToArray(
-      await DataHandler.read(file)
-    )
+    let data = this.convertMailDataToArray(await DataHandler.read(file))
     data = this.transformPosts(data)
     data.date = this.formDate()
     return { data, email }
@@ -84,16 +96,19 @@ class MailHandler {
 
   sendMail(email, mail, name) {
     // send the mail here.
-    const transporter = mailer.createTransport({
-      host: this.host,
-      port: this.port,
-      auth: {
-        user: this.username,
-        pass: this.password
-      }
-      }, {
+    const transporter = mailer.createTransport(
+      {
+        host: this.host,
+        port: this.port,
+        auth: {
+          user: this.username,
+          pass: this.password
+        }
+      },
+      {
         from: this.fromEmail
-    })
+      }
+    )
 
     // initialize the options
     const option = {
@@ -104,11 +119,10 @@ class MailHandler {
 
     return new Promise((resolve, reject) => {
       transporter.sendMail(option, (err, data) => {
-        if(err) return reject(err)
+        if (err) return reject(err)
         resolve(data)
       })
     })
-
   }
 
   formDate() {
@@ -148,9 +162,9 @@ class MailHandler {
   transformPosts(data) {
     // take the config and transform the the mail
     let tempData = data
-    tempData.mails = data.mails.map(posts => {
+    tempData.mails = data.mails.map((posts) => {
       const structure = posts.config.structure
-      if(typeof structure == 'object' && Object.keys(structure).length > 0) {
+      if (typeof structure == 'object' && Object.keys(structure).length > 0) {
         const sectionArray = []
         for (let key in structure) {
           // direct assignment messes thing up. big time.
@@ -161,7 +175,6 @@ class MailHandler {
           sectionArray.push(tempPosts)
         }
         posts = { sections: sectionArray }
-
       } else {
         posts = this.sortAndSlicePost(posts)
       }
@@ -178,7 +191,9 @@ class MailHandler {
     // filter the array if we need to
     if (config.property && config.value) {
       const regex = new RegExp(config.value)
-      posts.posts = posts.posts.filter(post => regex.test(post[config.property]))
+      posts.posts = posts.posts.filter((post) =>
+        regex.test(post[config.property])
+      )
     }
     const count = config.count ? config.count : 6
     posts.posts = posts.posts
@@ -231,7 +246,15 @@ class MailHandler {
     const fromEmail = process.env.FROM_EMAIL
     const dataDir = process.env.MAIL_DATA_DIR
     const viewsDir = process.env.VIEWS_DIR
-    return new MailHandler({ host, port, username, password, fromEmail, viewsDir, dataDir })
+    return new MailHandler({
+      host,
+      port,
+      username,
+      password,
+      fromEmail,
+      viewsDir,
+      dataDir
+    })
   }
 }
 

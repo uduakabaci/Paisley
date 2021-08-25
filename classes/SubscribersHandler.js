@@ -4,7 +4,6 @@ const date = require('date-and-time')
 const parser = require('cron-parser')
 const { mkdirSync } = require('fs')
 class SubscribersHandler extends PostCrawler {
-
   constructor({ subscribersFile, scrapperSchemaFile, dataDir, quiet }) {
     super({ quiet: true })
     this.subscribersFile = subscribersFile
@@ -23,7 +22,7 @@ class SubscribersHandler extends PostCrawler {
     // for each subscriber, loop through all the mail and crawl all its websites
     // write the to the email file in a way specified by the subscriber
     let count = 0
-    for(const subscriber of this.subscribers) {
+    for (const subscriber of this.subscribers) {
       // here is where the magic will happen
       let mailsCount = 0
       for (const mail of subscriber.mails) {
@@ -31,7 +30,7 @@ class SubscribersHandler extends PostCrawler {
         const next5Minutes = date.addMinutes(new Date(), 5)
         let nextCronDate = new Date(cron.next()._date.toString())
         // if this mail should not be sent in this hour, forget it
-        if(nextCronDate > next5Minutes) continue
+        if (nextCronDate > next5Minutes) continue
 
         const data = await this.handleMail(mail)
         await this.writeMailData(
@@ -59,8 +58,9 @@ class SubscribersHandler extends PostCrawler {
       delete website.structure
       // crawl the website here before attaching our structure back
       const datum = await this.crawl(website)
-      structure ?
-        datum.config = Object.assign({}, data.config, { structure }) : null
+      structure
+        ? (datum.config = Object.assign({}, data.config, { structure }))
+        : null
       data.push(datum)
     }
     return data
@@ -80,7 +80,11 @@ class SubscribersHandler extends PostCrawler {
     const scrapperSchemaFile = process.env.SCRAPPER_SCHEMA_FILE
     const subscribersFile = process.env.SUBSCRIBERS_SCHEMA_FILE
     const dataDir = process.env.MAIL_DATA_DIR
-    return new SubscribersHandler({ scrapperSchemaFile, subscribersFile, dataDir })
+    return new SubscribersHandler({
+      scrapperSchemaFile,
+      subscribersFile,
+      dataDir
+    })
   }
 }
 

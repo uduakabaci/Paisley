@@ -2,7 +2,8 @@ const {
   mockPage,
   mockBrowser,
   mockPuppeteer,
-  mockElementHandle } = require('./PuppeteerMock')
+  mockElementHandle
+} = require('./PuppeteerMock')
 const { rm, readdirSync, mkdirSync } = require('fs')
 const puppeteer = require('puppeteer')
 const dataDir = './tests/test-data'
@@ -11,11 +12,11 @@ jest.mock('puppeteer', () => mockPuppeteer)
 const PostCrawler = require('../classes/PostCrawler')
 beforeAll(() => {
   try {
-   mkdirSync(dataDir)
+    mkdirSync(dataDir)
   } catch (e) {}
 })
 
-afterAll(cb => rm(dataDir, { recursive: true , force: true }, cb))
+afterAll((cb) => rm(dataDir, { recursive: true, force: true }, cb))
 
 beforeEach(() => {
   pC = new PostCrawler({ quiet: true })
@@ -34,21 +35,22 @@ const config = {
 test('if is crawl working as expected', async () => {
   const data = await pC.crawl(config)
 
-  expect(data).toEqual(expect.objectContaining({
-        posts: [],
-        config: {
-          ignore: /^(ignore|outsideContext|website$)/,
-          website: 'www.fakewebsite.com',
-          link: 'www.fakewebsite.com'
-        }
-      })
-    )
+  expect(data).toEqual(
+    expect.objectContaining({
+      posts: [],
+      config: {
+        ignore: /^(ignore|outsideContext|website$)/,
+        website: 'www.fakewebsite.com',
+        link: 'www.fakewebsite.com'
+      }
+    })
+  )
 })
 describe('parsePosts working as expected on posts', () => {
   const id = '1234'
   const element = {
     comments: {
-      innerText: '20 comments',
+      innerText: '20 comments'
     },
 
     image: {
@@ -60,7 +62,7 @@ describe('parsePosts working as expected on posts', () => {
     },
 
     title: {
-      innerText: 'shining in paris',
+      innerText: 'shining in paris'
     },
     foo: {
       style: {
@@ -70,7 +72,7 @@ describe('parsePosts working as expected on posts', () => {
   }
   // i need a new element with id prefixed
   let element2 = Object.assign({}, element)
-  Object.keys(element2).forEach(key => {
+  Object.keys(element2).forEach((key) => {
     const newKey = `[id='${id}'] ${key}`
     element2[newKey] = element2[key]
     delete element2[key]
@@ -94,28 +96,32 @@ describe('parsePosts working as expected on posts', () => {
       { ...config, outsideContext: true },
       page
     )
-    expect(myposts).toEqual(expect.arrayContaining([
-      {
-        title: 'shining in paris',
-        comments: '20',
-        imagesrc: 'www.fakeimageurl.com',
-        link: 'www.myfakelink.com',
-        'background-color': 'red'
-      }
-    ]))
+    expect(myposts).toEqual(
+      expect.arrayContaining([
+        {
+          title: 'shining in paris',
+          comments: '20',
+          imagesrc: 'www.fakeimageurl.com',
+          link: 'www.myfakelink.com',
+          'background-color': 'red'
+        }
+      ])
+    )
   })
 
   test('inside context', async () => {
     const myposts = await pC.parsePosts(posts, config, page)
-    expect(myposts).toEqual(expect.arrayContaining([
-      {
-        title: 'shining in paris',
-        comments: '20',
-        imagesrc: 'www.fakeimageurl.com',
-        link: 'www.myfakelink.com',
-        'background-color': 'red'
-      }
-    ]))
+    expect(myposts).toEqual(
+      expect.arrayContaining([
+        {
+          title: 'shining in paris',
+          comments: '20',
+          imagesrc: 'www.fakeimageurl.com',
+          link: 'www.myfakelink.com',
+          'background-color': 'red'
+        }
+      ])
+    )
   })
 })
 
@@ -151,8 +157,8 @@ describe('selector working as expected', () => {
   })
 
   test('on posts inside context', async () => {
-    Object.keys(element).forEach(selector => {
-      Object.keys(element[selector]).forEach(async prop => {
+    Object.keys(element).forEach((selector) => {
+      Object.keys(element[selector]).forEach(async (prop) => {
         const d = await pC.selector({
           post,
           selector,
@@ -167,8 +173,8 @@ describe('selector working as expected', () => {
   })
 
   test('on posts outside context', async () => {
-    Object.keys(element).forEach(selector => {
-      Object.keys(element[selector]).forEach(async prop => {
+    Object.keys(element).forEach((selector) => {
+      Object.keys(element[selector]).forEach(async (prop) => {
         const d = await pC.selector({
           post,
           selector,
@@ -213,5 +219,4 @@ test('if is sanitize working as expected', async () => {
   expect(data.points).toEqual(expect.stringMatching(/^\d+$/))
   expect(data.imagesrc).toBe(data.imageShoot)
   expect(data.imageZero).toBe(data.imageZero)
-
 })

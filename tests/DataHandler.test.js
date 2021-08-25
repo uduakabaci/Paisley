@@ -14,14 +14,14 @@ beforeAll(() => {
     mkdirSync(dataDir)
   } catch (e) {}
 })
-afterAll(cb => rm(dataDir, { recursive: true , force: true }, cb))
-jest.mock('download', () => (() => {
+afterAll((cb) => rm(dataDir, { recursive: true, force: true }, cb))
+jest.mock('download', () => () => {
   const Stream = require('stream')
   const readable = new Stream.Readable()
   readable.push('[1, 2, 3]')
   readable.push(null)
   return readable
-}))
+})
 describe('Test if we can write file to', () => {
   test('fs', () => {
     const data = [1, 2, 3]

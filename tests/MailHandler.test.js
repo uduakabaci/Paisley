@@ -11,7 +11,7 @@ process.env.PASSWORD = 'james'
 process.env.FROM_EMAIL = 'janedoe@mail.com'
 process.env.MAIL_DATA_DIR = dataDir
 process.env.VIEWS_DIR = './email-templates'
-const email ='janedoe@gmail.com'
+const email = 'janedoe@gmail.com'
 
 jest.mock('nodemailer', () => ({
   createTransport(obj) {
@@ -19,15 +19,15 @@ jest.mock('nodemailer', () => ({
     return { sendMail: this.sendMail }
   },
   sendMail(options, cb) {
-    cb(null, { response: 'Ok', accepted: [email]})
+    cb(null, { response: 'Ok', accepted: [email] })
   }
 }))
 let mH
 const mailData = {
-  '0': {
+  0: {
     posts: Array.from({ length: 6 }).map((p, i) => {
-    const points = ((546-i) % (i+60))
-    return   {
+      const points = (546 - i) % (i + 60)
+      return {
         link: 'link-to-title',
         title: 'some fancy title',
         // generate a number between 100 and 1
@@ -40,7 +40,8 @@ const mailData = {
     config: {
       website: 'link-to-some-fancy-website',
       post: '.Post',
-      ignore: '^(ascending|outsideContext|ignore|count|name|channel|post|website)$',
+      ignore:
+        '^(ascending|outsideContext|ignore|count|name|channel|post|website)$',
       name: 'r/unixporn',
       count: 6,
       link: 'link-to-th-fancy-link',
@@ -52,10 +53,10 @@ const mailData = {
 }
 
 const mailData2 = {
-  '0': {
+  0: {
     posts: Array.from({ length: 6 }).map((p, i) => {
-    const rank = ((546-i) % (i+60))
-    return   {
+      const rank = (546 - i) % (i + 60)
+      return {
         link: 'link-to-title',
         rank,
         artist: 'Lil Baby',
@@ -100,9 +101,9 @@ beforeAll(async () => {
   await DataHandler.write(mailPath2, mailData2)
 })
 
-afterAll(cb => rm(dataDir, { recursive: true , force: true }, cb))
+afterAll((cb) => rm(dataDir, { recursive: true, force: true }, cb))
 
-beforeEach(cb => {
+beforeEach((cb) => {
   // create a fresh new object every time we run a test
   mh = MailHandler.init()
   mh.quiet = false
@@ -134,12 +135,17 @@ test('if start is working as expected', async () => {
 })
 
 test('if sendMail is working as expected', async () => {
-  const response =
-    await mh.sendMail(email, '<h1>hello world</h1>', 'testing email')
-  expect(response).toEqual(expect.objectContaining({
-    accepted: expect.arrayContaining([email]),
-    response: expect.stringMatching(/Ok/)
-  }))
+  const response = await mh.sendMail(
+    email,
+    '<h1>hello world</h1>',
+    'testing email'
+  )
+  expect(response).toEqual(
+    expect.objectContaining({
+      accepted: expect.arrayContaining([email]),
+      response: expect.stringMatching(/Ok/)
+    })
+  )
 })
 
 test('if formDate is working as expected', () => {
@@ -158,20 +164,19 @@ describe('transformPosts is working as expected', () => {
   test('on mail with .structure', async () => {
     let data = mh.convertMailDataToArray(await DataHandler.read(mailPath2))
     data = mh.transformPosts(data)
-    data.mails.forEach(m => {
+    data.mails.forEach((m) => {
       expect(m.sections).toEqual(expect.any(Array))
       testMails(m.sections)
     })
     expect(data.name).toEqual(expect.stringMatching(/\w+/))
   })
-
 })
 
 describe('sortAndSlicePost is working as expected', () => {
   test('on mail without .structure', async () => {
     let data = mh.convertMailDataToArray(await DataHandler.read(mailPath1))
     data = mh.transformPosts(data)
-    data.mails.forEach(posts => {
+    data.mails.forEach((posts) => {
       const count = 4
       posts.config.count = count
       posts = mh.sortAndSlicePost(posts)
@@ -183,7 +188,7 @@ describe('sortAndSlicePost is working as expected', () => {
   test('on mail with .structure', async () => {
     let data = mh.convertMailDataToArray(await DataHandler.read(mailPath2))
     data = mh.transformPosts(data)
-    data.mails[0].sections.forEach(posts => {
+    data.mails[0].sections.forEach((posts) => {
       const count = 4
       posts.config.count = count
       posts = mh.sortAndSlicePost(posts)
@@ -202,8 +207,8 @@ describe('sortAndSlicePost is working as expected', () => {
         const expB = a[fo] + op + b[so]
         a = eval(expA)
         b = eval(expB)
-      //   // go here
-      } else if(typeof sort == 'string') {
+        //   // go here
+      } else if (typeof sort == 'string') {
         a = a[sort]
         b = b[sort]
       }
@@ -226,7 +231,7 @@ test('if constructMailData is working as expected', async () => {
   const { name, email, mail } = await mh.constructMailData(mailPath1)
   expect(email).toBe(email)
   expect(name).toBe(name)
-  mailData['0'].posts.forEach(post => {
+  mailData['0'].posts.forEach((post) => {
     for (let key in post) {
       expect(mail).toEqual(expect.stringMatching(new RegExp(post[key])))
     }
@@ -235,19 +240,23 @@ test('if constructMailData is working as expected', async () => {
 })
 
 function testDate(date) {
-  expect(date).toEqual(expect.objectContaining({
-    date: expect.stringMatching(/\d{1,2}/),
-    month: expect.stringMatching(/\w+/),
-    weekDay: expect.stringMatching(/\w+/),
-    year: expect.stringMatching(/\d{4}/)
-  }))
+  expect(date).toEqual(
+    expect.objectContaining({
+      date: expect.stringMatching(/\d{1,2}/),
+      month: expect.stringMatching(/\w+/),
+      weekDay: expect.stringMatching(/\w+/),
+      year: expect.stringMatching(/\d{4}/)
+    })
+  )
 }
 
 function testMails(mails) {
-  expect(mails).toEqual(expect.arrayContaining([
-    {
-      posts: expect.any(Array),
-      config: expect.any(Object)
-    }
-  ]))
+  expect(mails).toEqual(
+    expect.arrayContaining([
+      {
+        posts: expect.any(Array),
+        config: expect.any(Object)
+      }
+    ])
+  )
 }

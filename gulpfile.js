@@ -1,20 +1,21 @@
 const ejs = require('gulp-ejs')
 const rename = require('gulp-rename')
-const { dest, src, watch, parallel }  = require('gulp')
+const { dest, src, watch, parallel } = require('gulp')
 const browserSync = require('browser-sync').create()
-const DataHandler = require('./classes/DataHandler')
 const MailHandler = require('./classes/MailHandler')
 
 const mH = MailHandler.init()
 require('dotenv').config()
 
 async function compileEJS() {
-  const { data } = await mH.formMailData('./dev/data/uduakabaciudofe@gmail.com-mail-1.yaml')
+  const { data } = await mH.formMailData(
+    './dev/data/jane@email.com-mail-0.yaml'
+  )
   console.log(data)
   // compile our ejs when any change occures
   return src('./email-templates/index.ejs')
     .pipe(ejs({ data }))
-    .pipe(rename({ extname: '.html'}))
+    .pipe(rename({ extname: '.html' }))
     .pipe(dest('./dev'))
 }
 

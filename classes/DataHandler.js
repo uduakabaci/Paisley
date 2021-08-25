@@ -6,9 +6,7 @@ const stream2string = require('stream-to-string')
 const path = require('path')
 
 class DataHandler {
-  constructor() {
-
-  }
+  constructor() {}
 
   static async read(filename) {
     const isUri = url.isUri(filename)
@@ -17,7 +15,7 @@ class DataHandler {
       const stream = download(filename)
       string = await stream2string(stream)
     } else {
-      string = readFileSync(filename,'utf8')
+      string = readFileSync(filename, 'utf8')
     }
 
     const data = yaml.safeLoad(string)
@@ -33,11 +31,11 @@ class DataHandler {
     // load this according to the environment we are on
     const env = process.env.NODE_ENV
     const mainDir = path.parse(__dirname).dir
-    const filename =  `${mainDir}/.${env}.env`
+    const filename = `${mainDir}/.${env}.env`
     try {
       // try to read this file, if failed, resort to the default
       readFileSync(filename)
-      require('dotenv').config({ path: filename})
+      require('dotenv').config({ path: filename })
     } catch (e) {
       require('dotenv').config()
     }

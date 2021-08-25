@@ -16,7 +16,10 @@
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.26.13",
-    "gulp-rename": "^2.0.0"
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "gulp-rename": "^2.0.0",
+    "prettier": "^2.3.2"
   },
   "dependencies": {
     "jest": "^26.6.3",
@@ -33,7 +36,6 @@
     "juice": "^7.0.0",
     "nodemailer": "^6.4.16",
     "nodemon": "^2.0.6",
-    "prettier": "^2.2.1",
     "puppeteer": "^5.3.1",
     "stream-to-string": "^1.2.0",
     "valid-url": "^1.0.9"
