@@ -1,4 +1,4 @@
-const { readFileSync, writeFileSync, createWriteStream } = require('fs')
+const { readFileSync, writeFileSync } = require('fs')
 const url = require('valid-url')
 const yaml = require('js-yaml')
 const download = require('download')

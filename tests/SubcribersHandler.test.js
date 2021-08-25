@@ -1,12 +1,8 @@
-const {
-  mockPage,
-  mockBrowser,
-  mockPuppeteer,
-  mockElementHandle
-} = require('./PuppeteerMock')
+const { mockPuppeteer } = require('./PuppeteerMock')
 const { rm, readdirSync, mkdirSync, writeFileSync } = require('fs')
 const SubscribersHandler = require('../classes/SubscribersHandler.js')
 const DataHandler = require('../classes/DataHandler')
+
 const dataDir = './tests/test-data'
 const subscribersFile = `${dataDir}/subscribers-schema.yaml`
 process.env.SCRAPPER_SCHEMA_FILE = 'scrapper-schema.yaml'

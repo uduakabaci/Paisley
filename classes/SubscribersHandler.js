@@ -3,6 +3,7 @@ const PostCrawler = require('./PostCrawler')
 const date = require('date-and-time')
 const parser = require('cron-parser')
 const { mkdirSync } = require('fs')
+
 class SubscribersHandler extends PostCrawler {
   constructor({ subscribersFile, scrapperSchemaFile, dataDir, quiet }) {
     super({ quiet: true })

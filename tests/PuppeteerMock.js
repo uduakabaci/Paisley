@@ -1,21 +1,21 @@
 const mockPage = {
-  goto(url) {
+  goto() {
     return Promise.resolve()
   },
 
-  $$(selector) {
+  $$() {
     return Promise.resolve([])
   },
 
-  $(selector) {
+  $() {
     return Promise.resolve()
   },
 
-  $eval(selector, pageFunction) {
+  $eval() {
     return Promise.resolve()
   },
 
-  on(event, cb) {
+  on() {
     return true
   },
 

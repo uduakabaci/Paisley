@@ -450,7 +450,7 @@
       link: >-
         https://www.reddit.com/r/unixporn/comments/paqkd5/openbox_summer_in_spain/
       imagesrc: >-
-        https://preview.redd.it/g4u46xvmzbj71.png?width=640&crop=smart&auto=webp&s=f431b67c90bc066466039c65fe087371a5d14ca3
+        https://preview.redd.it/g4u46xvmzbj71.png?width=640&crop=smart&auto=webp&s=f431b67ca90bc066466039c65fe087371a5d14ca3
       imageposter: '0'
   config:
     website: 'https://www.reddit.com/r/${channel}/top/?t=day'

@@ -1,6 +1,6 @@
 const DataHandler = require('./DataHandler')
 const path = require('path')
-const { readdirSync, unlinkSync, mkdirSync } = require('fs')
+const { readdirSync, mkdirSync } = require('fs')
 const ejs = require('ejs')
 const mailer = require('nodemailer')
 const Juice = require('juice')
