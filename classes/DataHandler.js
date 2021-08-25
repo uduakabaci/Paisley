@@ -39,6 +39,13 @@ class DataHandler {
     } catch (e) {
       require('dotenv').config()
     }
+
+    // just incase the user forgot, use the best
+    process.env.SCRAPPER_SCHEMA_FILE =
+      process.env.SCRAPPER_SCHEMA_FILE || 'scrapper-schema.yaml'
+    process.env.VIEWS_DIR = process.env.VIEWS_DIR || './email-templates'
+    process.env.MAIL_DATA_DIR = process.env.MAIL_DATA_DIR || './mail-data'
+    process.env.ASSETS_URL = path.normalize(`${__dirname}/../email-templates`)
   }
 }
 

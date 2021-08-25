@@ -56,13 +56,13 @@ ASSETS_URL=absolute link to the email-templates directory
 VIEWS_DIR=./email-templates
 MAIL_DATA_DIR=./mail-data
 
-USERNAME=****
+LOGIN=****
 PASSWORD=****
 HOST=****
 PORT=****
 ```
 
-I use SendGrid to send the emails but any other SMTP mail server is fine. Replace the USERNAME, PASSWORD, HOST, PORT values with the values provided to you by your SMTP mail server.
+I use SendGrid to send the emails but any other SMTP mail server is fine. Replace the LOGIN, PASSWORD, HOST, PORT values with the values provided to you by your SMTP mail server. The LOGIN is your username.
 Also, don't forget to replace the ASSETS_URL value with the absolute link to the email-template directory in Paisley's root directory.
 If you want to use Gmail, make sure to check out this [section](#how-can-do-use-gmail)
 
@@ -103,7 +103,7 @@ Paisley needs a few Environment variables to function properly
 - `FROM_EMAIL:` The email that will be used as the `from email` in email header.
 - `ASSETS_URL:` Absolute link to the mail-data directory
 - `VIEWS_DIR:` Link to the mail-data directory
-- `USERNAME:` Your SMTP mail server username
+- `LOGIN:` Your SMTP mail server username
 - `PASSWORD:` Your SMTP mail server password
 - `HOST:` Your SMTP mail server host
 - `PORT:` Your SMTP mail server port
@@ -244,7 +244,7 @@ This file provides the list of subscribers and how each email should be structur
 If Gmail is your SMTP server of choice, use the following config:
 
 ```
-USERNAME=your Gmail e.g., janedoe@gmail.com
+LOGIN=your Gmail e.g., janedoe@gmail.com
 PASSWORD=Your Gmail password
 HOST=smtp.gmail.com
 PORT=587

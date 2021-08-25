@@ -6,7 +6,7 @@ const { mkdirSync } = require('fs')
 
 class SubscribersHandler extends PostCrawler {
   constructor({ subscribersFile, scrapperSchemaFile, dataDir, quiet }) {
-    super({ quiet: true })
+    super({ quiet })
     this.subscribersFile = subscribersFile
     this.scrapperSchemaFile = scrapperSchemaFile
     this.dataDir = dataDir
@@ -18,8 +18,10 @@ class SubscribersHandler extends PostCrawler {
     // try to create data dir
     try {
       mkdirSync(this.dataDir)
-    } catch (e) {}
-    this.quiet && console.log('crawling started')
+    } catch (e) {
+      /* shut up */
+    }
+    console.log('crawling started')
     // for each subscriber, loop through all the mail and crawl all its websites
     // write the to the email file in a way specified by the subscriber
     let count = 0
@@ -77,14 +79,16 @@ class SubscribersHandler extends PostCrawler {
   }
 
   static init() {
-    require('dotenv').config()
+    DataHandler.loadConfig()
     const scrapperSchemaFile = process.env.SCRAPPER_SCHEMA_FILE
     const subscribersFile = process.env.SUBSCRIBERS_SCHEMA_FILE
     const dataDir = process.env.MAIL_DATA_DIR
+    const quiet = process.env.NODE_ENV != 'development'
     return new SubscribersHandler({
       scrapperSchemaFile,
       subscribersFile,
-      dataDir
+      dataDir,
+      quiet
     })
   }
 }

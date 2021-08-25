@@ -73,9 +73,7 @@ class MailHandler {
       Juice.juiceResources(
         mail,
         {
-          webResources: {
-            relativeTo: process.env.ASSETS_URL
-          }
+          webResources: { relativeTo: process.env.ASSETS_URL }
         },
         (err, mail) => {
           if (err) return reject(err)
@@ -100,6 +98,7 @@ class MailHandler {
       {
         host: this.host,
         port: this.port,
+        secure: false,
         auth: {
           user: this.username,
           pass: this.password
@@ -237,11 +236,10 @@ class MailHandler {
   }
 
   static init() {
-    // require('dotenv').config()
     DataHandler.loadConfig()
     const host = process.env.HOST
     const port = process.env.PORT
-    const username = process.env.USERNAME
+    const username = process.env.LOGIN
     const password = process.env.PASSWORD
     const fromEmail = process.env.FROM_EMAIL
     const dataDir = process.env.MAIL_DATA_DIR

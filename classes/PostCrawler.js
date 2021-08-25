@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer')
 
 class PostCrawler {
   constructor({ quiet }) {
-    this.quiet = !quiet
+    this.quiet = quiet
   }
 
   async crawl(website) {
