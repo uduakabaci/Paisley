@@ -42,7 +42,6 @@ class PostCrawler {
       const regex = new RegExp(website.ignore)
       const myposts = []
       // if the post has other value out the context of the element, use id
-      let count = 1
       for (let post of posts) {
         const data = {}
         for (let key in website) {

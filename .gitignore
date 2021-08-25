@@ -1,6 +1,8 @@
 *.env
-/node_modules
+node_modules/
 data.json
 *.yaml
 !scrapper-schema.yaml
-/dev/
+dev/*
+!dev/data
+mail-data/*
