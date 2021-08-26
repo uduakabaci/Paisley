@@ -237,6 +237,10 @@ This file provides the list of subscribers and how each email should be structur
 
     > **Note** You should only provide base property in sections and not the sub-sections.
 
+## For Developers
+
+In order not experience any hitch during testing, make sure that you are running Paisley on node.js v12+.
+
 ## FAQ
 
 #### How Can Do Use Gmail?
